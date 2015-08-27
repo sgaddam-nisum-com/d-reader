@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>excel sheet</title>
+    <script src="javascripts/handsontable.full.min.js"></script>
+    <link rel="stylesheet" media="screen" href="stylesheets/handsontable.full.min.css">    
+</head>
+
+<body>
+    <div id="example"></div>
+</body>
+
+<SCRIPT TYPE="text/javascript">
+    var data = [
+        ["", "Ford", "Volvo", "Toyota", "Honda"],
+        ["2014", 10, 11, 12, 13],
+        ["2015", 20, 11, 14, 13],
+        ["2016", 30, 15, 12, 13]
+    ];
+
+    var container = document.getElementById('example');
+    var hotInstance = new Handsontable(container, {
+        data: data,
+        minSpareRows: 1,
+        rowHeaders: true,
+        colHeaders: true,
+        contextMenu: true,
+        comments: true,
+        afterChange: function (changes, source) {
+            if (!changes) {
+                    return;
+                }
+            var rowIndex = changes[0][0];
+            var columnIndex = changes[0][1];
+            var oldValue = changes[0][2];
+            var newValue = changes[0][3];
+
+            if ((oldValue + '') === (newValue + '')) {
+                return;
+            } else {
+                alert("value changed from " + oldValue + " to " + newValue);
+            }
+        }
+    });
+
+    //hotInstance.selectCell(2,2);
+   // Handsontable.hooks.add('afterChange', updateTable, hotInstance);
+
+  //   var updateTable = function() {
+		//   // Fired twice - for hot1 and hot2
+		//   if (this.getSettings().myPlugin) {
+		//     // function body - will only run for hot1
+		//   }
+		// };
+
+    //alert(hotInstance.getSelected());
+    </SCRIPT>
+
+</html>
